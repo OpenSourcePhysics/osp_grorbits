@@ -1033,11 +1033,10 @@ public class GRorbits2 extends JApplet implements Runnable, ActionListener, Prop
 		return false;
 	}
     
-
   public void run() {
-	StateHelper helper = new SwingJSUtils.StateHelper(this);  
-	helper.setState(STATE_INIT);
-	helper.getNextState();
+	stateHelper = new SwingJSUtils.StateHelper(this);  
+	stateHelper.setState(STATE_INIT);
+	stateHelper.sleep(0);
 //	
 //    while (animationThread == Thread.currentThread()) {
 //      try {
