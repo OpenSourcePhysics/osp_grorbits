@@ -20,7 +20,8 @@ import javax.swing.table.AbstractTableModel;
 public class InitialConditionsInspector extends javax.swing.JComponent implements TableModelListener, MouseListener, MouseMotionListener {
   public JTable table;
   Orbit orbit;
-  PropertyChangeSupport support = new SwingPropertyChangeSupport(this);
+  //PropertyChangeSupport support = 
+  //		  new SwingPropertyChangeSupport(this);
   ExcelAdapter myAd;
   boolean isStopped=true;
   
@@ -96,9 +97,9 @@ public class InitialConditionsInspector extends javax.swing.JComponent implement
   
 
   
-  public void addPropertyChangeListener(PropertyChangeListener listener){
-    support.addPropertyChangeListener(listener);
-  }
+//  public void addPropertyChangeListener(PropertyChangeListener listener){
+//    support.addPropertyChangeListener(listener);
+//  }
 
   /* (non-Javadoc)
    * @see javax.swing.event.TableModelListener#tableChanged(javax.swing.event.TableModelEvent)
@@ -109,50 +110,50 @@ public class InitialConditionsInspector extends javax.swing.JComponent implement
     //TableModel model = (TableModel)e.getSource();
     if(!orbit.twoPotentials){//if we have MATTER orbit
       if(row==1){//setting Em
-        support.firePropertyChange("icInspectorChangeEm",null,null);
+        /*support.*/firePropertyChange("icInspectorChangeEm",null,null);
       }
       else if(row==2){//setting Lm
-        support.firePropertyChange("icInspectorChangeLm",null,null);
+        /*support.*/firePropertyChange("icInspectorChangeLm",null,null);
         
       }
       else if(row==3){//setting r
-        support.firePropertyChange("icInspectorChangeR",null,null);
+        /*support.*/firePropertyChange("icInspectorChangeR",null,null);
       }
       else if(row==0){//setting a
-        support.firePropertyChange("icInspectorChangeA",null,null);
+        /*support.*/firePropertyChange("icInspectorChangeA",null,null);
       }
       else if(row==6){//setting dt
-        support.firePropertyChange("icInspectorChangeDT",null,null);
+        /*support.*/firePropertyChange("icInspectorChangeDT",null,null);
       }
       else if(row==4){//setting v0
-        support.firePropertyChange("icInspectorChangeV0",null,null);
+        /*support.*/firePropertyChange("icInspectorChangeV0",null,null);
       }
       else if(row==5){//setting theta0
-        support.firePropertyChange("icInspectorChangeTheta0",null,null);
+        /*support.*/firePropertyChange("icInspectorChangeTheta0",null,null);
       }
       else if(row==7){//setting numPoints
-        support.firePropertyChange("icInspectorChangeNumPoints",null,null);
+        /*support.*/firePropertyChange("icInspectorChangeNumPoints",null,null);
       }
     }
     else{//if we have LIGHT orbit
       if(row==1){//setting invB
-        support.firePropertyChange("icInspectorChangeEm",null,null);
+        /*support.*/firePropertyChange("icInspectorChangeEm",null,null);
       }
       else if(row==2){//setting Lm
-        support.firePropertyChange("icInspectorChangeR",null,null);
+        /*support.*/firePropertyChange("icInspectorChangeR",null,null);
         
       }
       else if(row==0){//setting a
-        support.firePropertyChange("icInspectorChangeA",null,null);
+        /*support.*/firePropertyChange("icInspectorChangeA",null,null);
       }
       else if(row==4){//setting dt
-        support.firePropertyChange("icInspectorChangeDT",null,null);
+        /*support.*/firePropertyChange("icInspectorChangeDT",null,null);
       }
       else if(row==3){//setting theta0
-        support.firePropertyChange("icInspectorChangeTheta0",null,null);
+        /*support.*/firePropertyChange("icInspectorChangeTheta0",null,null);
       }
       else if(row==5){//setting numPoints
-        support.firePropertyChange("icInspectorChangeNumPoints",null,null);
+        /*support.*/firePropertyChange("icInspectorChangeNumPoints",null,null);
       }
     }
     
@@ -182,14 +183,14 @@ public class InitialConditionsInspector extends javax.swing.JComponent implement
   
   public void mouseEntered(MouseEvent e) {
     if(isStopped()){
-      support.firePropertyChange("icMouseEntered",null,null);
+      /*support.*/firePropertyChange("icMouseEntered",null,null);
     }
    
   }
   
   public void mouseExited(MouseEvent e) {
     if(isStopped()){
-      support.firePropertyChange("icMouseExited",null,null);
+      /*support.*/firePropertyChange("icMouseExited",null,null);
     }
   }
   

@@ -1,10 +1,18 @@
 package org.opensourcephysics.tuleja.grorbits;
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.geom.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -13,7 +21,8 @@ import javax.swing.event.SwingPropertyChangeSupport;
 
 public class OrbitDrawingPanel extends DrawingPanel implements MouseListener, MouseMotionListener{
   Orbit orbit;
-  PropertyChangeSupport support = new SwingPropertyChangeSupport(this);
+  // BH can't do this - too late in SwingJS
+  //PropertyChangeSupport support = new SwingPropertyChangeSupport(this);
   double gridDivision=2;
   boolean cursorOver=false, isStopped=true;
   int curI, curJ;
@@ -285,9 +294,9 @@ public class OrbitDrawingPanel extends DrawingPanel implements MouseListener, Mo
 
   }
 
-  public void addPropertyChangeListener(PropertyChangeListener listener){
-    support.addPropertyChangeListener(listener);
-  }
+//  public void addPropertyChangeListener(PropertyChangeListener listener){
+//    support.addPropertyChangeListener(listener);
+//  }
 
   public void setInitialArrowVisible(boolean value){
     showInitialArrow = value;
@@ -417,7 +426,8 @@ public class OrbitDrawingPanel extends DrawingPanel implements MouseListener, Mo
 
         orbit.getIC().adjustEmLmSign();
         setCursor(new Cursor(Cursor.HAND_CURSOR));
-        support.firePropertyChange("orbMouseChange",null,null);
+        //support.
+        firePropertyChange("orbMouseChange",null,null);
       }
       else setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
     }
@@ -437,13 +447,15 @@ public class OrbitDrawingPanel extends DrawingPanel implements MouseListener, Mo
 
   public void mouseEntered(MouseEvent e) {
     if(isStopped()&&  showInitialArrow){
-      support.firePropertyChange("orbMouseEntered",null,null);
+      //support.
+      firePropertyChange("orbMouseEntered",null,null);
     }
   }
 
   public void mouseExited(MouseEvent e) {
     if(isStopped()&&  showInitialArrow){
-      support.firePropertyChange("orbMouseExited",null,null);
+      //support.
+      firePropertyChange("orbMouseExited",null,null);
     }
 
     //do always

@@ -27,7 +27,7 @@ public class OrbitSliderControls extends javax.swing.JComponent implements Chang
   double Lm,a,b;
   DecimalFormat format = new DecimalFormat("0.000");
   Orbit orbit;
-  PropertyChangeSupport support = new SwingPropertyChangeSupport(this);
+  // PropertyChangeSupport support = new SwingPropertyChangeSupport(this);
   boolean isStopped=true;
   
   public OrbitSliderControls(Orbit orbit){
@@ -183,63 +183,63 @@ public class OrbitSliderControls extends javax.swing.JComponent implements Chang
     slB.getInputMap().put(KeyStroke.getKeyStroke("released UP"),"up");
     slB.getActionMap().put("up", new AbstractAction() {
       public void actionPerformed(ActionEvent e) {
-        support.firePropertyChange("ICChange",null,null); 
+        /*support.*/firePropertyChange("ICChange",null,null); 
       }
     });
     
     slB.getInputMap().put(KeyStroke.getKeyStroke("released DOWN"),"down");
     slB.getActionMap().put("down", new AbstractAction() {
       public void actionPerformed(ActionEvent e) {
-        support.firePropertyChange("ICChange",null,null); 
+        /*support.*/firePropertyChange("ICChange",null,null); 
       }
     });
     
     slB.getInputMap().put(KeyStroke.getKeyStroke("released RIGHT"),"right");
     slB.getActionMap().put("right", new AbstractAction() {
       public void actionPerformed(ActionEvent e) {
-        support.firePropertyChange("ICChange",null,null); 
+        /*support.*/firePropertyChange("ICChange",null,null); 
       }
     });
     
     slB.getInputMap().put(KeyStroke.getKeyStroke("released LEFT"),"left");
     slB.getActionMap().put("left", new AbstractAction() {
       public void actionPerformed(ActionEvent e) {
-        support.firePropertyChange("ICChange",null,null); 
+        /*support.*/firePropertyChange("ICChange",null,null); 
       }
     });
     
     slB.getInputMap().put(KeyStroke.getKeyStroke("released HOME"),"home");
     slB.getActionMap().put("home", new AbstractAction() {
       public void actionPerformed(ActionEvent e) {
-        support.firePropertyChange("ICChange",null,null); 
+        /*support.*/firePropertyChange("ICChange",null,null); 
       }
     });
     
     slB.getInputMap().put(KeyStroke.getKeyStroke("released END"),"end");
     slB.getActionMap().put("end", new AbstractAction() {
       public void actionPerformed(ActionEvent e) {
-        support.firePropertyChange("ICChange",null,null); 
+        /*support.*/firePropertyChange("ICChange",null,null); 
       }
     });
     
     slB.getInputMap().put(KeyStroke.getKeyStroke("released PAGE_UP"),"pgup");
     slB.getActionMap().put("pgup", new AbstractAction() {
       public void actionPerformed(ActionEvent e) {
-        support.firePropertyChange("ICChange",null,null); 
+        /*support.*/firePropertyChange("ICChange",null,null); 
       }
     });
     
     slB.getInputMap().put(KeyStroke.getKeyStroke("released PAGE_DOWN"),"pgdn");
     slB.getActionMap().put("pgdn", new AbstractAction() {
       public void actionPerformed(ActionEvent e) {
-        support.firePropertyChange("ICChange",null,null); 
+        /*support.*/firePropertyChange("ICChange",null,null); 
       }
     });
   }
   
-  public void addPropertyChangeListener(PropertyChangeListener listener){
-    support.addPropertyChangeListener(listener);
-  }
+//  public void addPropertyChangeListener(PropertyChangeListener listener){
+//    support.addPropertyChangeListener(listener);
+//  }
   
   public void stateChanged(ChangeEvent event) {
     //defines the method stateChanged(...) of interface ChangeListener
@@ -251,7 +251,7 @@ public class OrbitSliderControls extends javax.swing.JComponent implements Chang
       TitledBorder borderA=BorderFactory. createTitledBorder("J/M = a = " + format.format(a) + " M");
       borderA.setTitleJustification(TitledBorder.CENTER);
       slA.setBorder(borderA);
-      support.firePropertyChange("slAChange",null,null);
+      /*support.*/firePropertyChange("slAChange",null,null);
     }
     else if (source.equals(slLm)) {
       //after adjusting slLm
@@ -259,7 +259,7 @@ public class OrbitSliderControls extends javax.swing.JComponent implements Chang
       TitledBorder borderLm=BorderFactory.createTitledBorder("L/m = " + format.format(Lm) + " M");
       borderLm.setTitleJustification(TitledBorder.CENTER);
       slLm.setBorder(borderLm);
-      support.firePropertyChange("slLmChange",null,null); 
+      /*support.*/firePropertyChange("slLmChange",null,null); 
     }
     else if(source.equals(slB)) {
       //after adjusting slB
@@ -267,7 +267,7 @@ public class OrbitSliderControls extends javax.swing.JComponent implements Chang
       TitledBorder borderB=BorderFactory.createTitledBorder("b = " + format.format(b) + " M");
       borderB.setTitleJustification(TitledBorder.CENTER);
       slB.setBorder(borderB);
-      support.firePropertyChange("slBChange",null,null);
+      /*support.*/firePropertyChange("slBChange",null,null);
     }
     
     
@@ -325,19 +325,19 @@ public class OrbitSliderControls extends javax.swing.JComponent implements Chang
   }
   
   public void mouseReleased(MouseEvent e) {
-    support.firePropertyChange("ICChange",null,null); 
+    /*support.*/firePropertyChange("ICChange",null,null); 
   }
   
   public void mouseEntered(MouseEvent e) {
     if(isStopped()){
-      support.firePropertyChange("slidersMouseEntered",null,null);
+      /*support.*/firePropertyChange("slidersMouseEntered",null,null);
     }
    
   }
   
   public void mouseExited(MouseEvent e) {
     if(isStopped()){
-      support.firePropertyChange("slidersMouseExited",null,null);
+      /*support.*/firePropertyChange("slidersMouseExited",null,null);
     }
   }
   
@@ -346,7 +346,7 @@ public class OrbitSliderControls extends javax.swing.JComponent implements Chang
   }
   
   public void mouseMoved(MouseEvent e) {
-    support.firePropertyChange("ICChange",null,null); 
+    /*support.*/firePropertyChange("ICChange",null,null); 
   }
   
   

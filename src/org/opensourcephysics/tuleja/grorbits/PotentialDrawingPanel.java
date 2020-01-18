@@ -14,7 +14,7 @@ import javax.swing.event.SwingPropertyChangeSupport;
 
 public class PotentialDrawingPanel extends DrawingPanel implements MouseListener, MouseMotionListener, MouseWheelListener{
   Orbit orbit;
-  PropertyChangeSupport support = new SwingPropertyChangeSupport(this);
+  //PropertyChangeSupport support = new SwingPropertyChangeSupport(this);
   double rLocalMin, rLocalMax, rLocalMinLower, rLocalMaxLower, vmMin, vmMax;
   double rMax=25;
   boolean necessaryToRescale=false;
@@ -249,9 +249,9 @@ public class PotentialDrawingPanel extends DrawingPanel implements MouseListener
     
   }
   
-  public void addPropertyChangeListener(PropertyChangeListener listener){
-    support.addPropertyChangeListener(listener);
-  }
+//  public void addPropertyChangeListener(PropertyChangeListener listener){
+//    support.addPropertyChangeListener(listener);
+//  }
   
   public void rescale(){
     necessaryToRescale=true;
@@ -539,7 +539,8 @@ public class PotentialDrawingPanel extends DrawingPanel implements MouseListener
         orbit.getIC().setEffPotParameter(param);
         orbit.reset();
         rescale();
-        support.firePropertyChange("effPotMouseChange",null,null);
+        //support.
+        firePropertyChange("effPotMouseChange",null,null);
       }
       
       
@@ -580,7 +581,8 @@ public class PotentialDrawingPanel extends DrawingPanel implements MouseListener
           setCursor(new Cursor(Cursor.E_RESIZE_CURSOR));
           double newRMax=getRMax()*rOld/r;
           if((r>1e-3)&&(newRMax>1e-3) ) setRMax(newRMax);
-          support.firePropertyChange("effPotMouseXResize",null,null);
+          //support.
+          firePropertyChange("effPotMouseXResize",null,null);
         }
       }
       else{//dragging the dot
@@ -589,7 +591,8 @@ public class PotentialDrawingPanel extends DrawingPanel implements MouseListener
         orbit.getIC().setEffPotParameter(param);
         orbit.reset();
         rescale();
-        support.firePropertyChange("effPotMouseChange",null,null);
+        //support.
+        firePropertyChange("effPotMouseChange",null,null);
       }
       
       
@@ -639,7 +642,8 @@ public class PotentialDrawingPanel extends DrawingPanel implements MouseListener
           setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
           double newRMax=getRMax()*rOld/r;
           if((r>1e-3)&&(newRMax>1e-3) ) setRMax(newRMax);
-          support.firePropertyChange("effPotMouseXResize",null,null);
+          //support.
+          firePropertyChange("effPotMouseXResize",null,null);
         }
       }
       else{//dot dragged
@@ -648,7 +652,8 @@ public class PotentialDrawingPanel extends DrawingPanel implements MouseListener
         orbit.getIC().setEffPotParameter(param);
         orbit.reset();
         rescale();
-        support.firePropertyChange("effPotMouseChange",null,null);
+        //support.
+        firePropertyChange("effPotMouseChange",null,null);
       }
       
       
@@ -665,13 +670,15 @@ public class PotentialDrawingPanel extends DrawingPanel implements MouseListener
 
   public void mouseEntered(MouseEvent e) {
     if(isStopped()){
-      support.firePropertyChange("potMouseEntered",null,null);
+      //support.
+      firePropertyChange("potMouseEntered",null,null);
     }
   }
 
   public void mouseExited(MouseEvent e) {
     if(isStopped()){
-      support.firePropertyChange("potMouseExited",null,null);
+      //support.
+      firePropertyChange("potMouseExited",null,null);
     }
     mouseOverRightEdge=false;
     setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));

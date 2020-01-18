@@ -7,6 +7,10 @@ import java.beans.PropertyChangeListener;
 import java.text.DecimalFormat;
 import javax.swing.*;
 
+import javajs.async.SwingJSUtils;
+import javajs.async.SwingJSUtils.StateHelper;
+import javajs.async.SwingJSUtils.StateMachine;
+
 /**
  * Application: GRorbits2
  * Author: Slavomir Tuleja
@@ -19,7 +23,7 @@ import javax.swing.*;
  * freely in equatorial plane of a Kerr black hole
  * in Boyer-Lindquist coordinates and in rain coordinates
  */
-public class GRorbits2 extends JApplet implements Runnable, ActionListener, PropertyChangeListener {
+public class GRorbits2 extends JApplet implements Runnable, ActionListener, PropertyChangeListener, StateMachine {
   Container cp;
   Thread animationThread;  
   
@@ -967,7 +971,7 @@ public class GRorbits2 extends JApplet implements Runnable, ActionListener, Prop
     if (animationThread != null)
       return; //already running
     animationThread = new Thread(this);
-    //animationThread.start(); // WC: disable thread for JS; Will replace with Swing timer
+    animationThread.start(); 
     potDrawingPanel.setStopped(false);
     orbDrawingPanel.setStopped(false);
     sliderControls.setStopped(false);
@@ -995,23 +999,62 @@ public class GRorbits2 extends JApplet implements Runnable, ActionListener, Prop
     odInspector.setStopped(true);
   }
   
+	private final static int STATE_INIT = 0;
+	private final static int STATE_LOOP = 1;
+	private final static int STATE_DONE = 2;
+
+	private StateHelper stateHelper;
+
+	@Override
+	public boolean stateLoop() {
+		while (animationThread != null 
+				&& !animationThread.isInterrupted() 
+				&& stateHelper.isAlive()) {
+			switch (stateHelper.getState()) {
+			default:
+			case STATE_INIT:
+				stateHelper.setState(STATE_LOOP);
+				stateHelper.sleep(20);
+				return true;
+			case STATE_LOOP:
+		        orbit.doStep();
+		        if (menuItemAutoZoom.isSelected()) adjustZoom();
+		        pnlButtons.setBorder(BorderFactory.createTitledBorder("t = ".concat(format.format(orbit.getT()).concat(" M     \u03c4 = ").concat(format.format(orbit.getTau()))).concat(" M")));
+		        
+		        orbDrawingPanel.repaint();
+		        odInspector.repaint();
+		        potDrawingPanel.repaint();
+				stateHelper.sleep(20);
+				return true;
+			case STATE_DONE:
+				return false;
+			}
+		}
+		return false;
+	}
+    
+
   public void run() {
-    while (animationThread == Thread.currentThread()) {
-      try {
-        Thread.sleep(20);
-        
-        orbit.doStep();
-      } catch (InterruptedException e) {
-        System.out.println("Interrupted...");
-      }
-      
-      if (menuItemAutoZoom.isSelected()) adjustZoom();
-      pnlButtons.setBorder(BorderFactory.createTitledBorder("t = ".concat(format.format(orbit.getT()).concat(" M     \u03c4 = ").concat(format.format(orbit.getTau()))).concat(" M")));
-      
-      orbDrawingPanel.repaint();
-      odInspector.repaint();
-      potDrawingPanel.repaint();
-    }
+	StateHelper helper = new SwingJSUtils.StateHelper(this);  
+	helper.setState(STATE_INIT);
+	helper.getNextState();
+//	
+//    while (animationThread == Thread.currentThread()) {
+//      try {
+//        Thread.sleep(20);
+//        
+//        orbit.doStep();
+//      } catch (InterruptedException e) {
+//        System.out.println("Interrupted...");
+//      }
+//      
+//      if (menuItemAutoZoom.isSelected()) adjustZoom();
+//      pnlButtons.setBorder(BorderFactory.createTitledBorder("t = ".concat(format.format(orbit.getT()).concat(" M     \u03c4 = ").concat(format.format(orbit.getTau()))).concat(" M")));
+//      
+//      orbDrawingPanel.repaint();
+//      odInspector.repaint();
+//      potDrawingPanel.repaint();
+//    }
     
   }
   
@@ -1045,10 +1088,11 @@ public class GRorbits2 extends JApplet implements Runnable, ActionListener, Prop
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     GRorbits2 app = new GRorbits2();
     app.initialize();
-    frame.getContentPane().add(app);
+//    frame.getContentPane().add(app);
+    frame.setContentPane(app.getContentPane());
     frame.setVisible(true);
   }
-  
+
   
 }
 

@@ -17,7 +17,7 @@ public class OrbitDataInspector extends javax.swing.JComponent implements MouseL
   JTable table;
   Orbit orbit;
   boolean isStopped=true;
-  PropertyChangeSupport support = new SwingPropertyChangeSupport(this);
+//  PropertyChangeSupport support = new SwingPropertyChangeSupport(this);
   
   public OrbitDataInspector(Orbit orbit){
     this.orbit=orbit;
@@ -91,10 +91,10 @@ public class OrbitDataInspector extends javax.swing.JComponent implements MouseL
     }
   } 
   
-  public void addPropertyChangeListener(PropertyChangeListener listener){
-    support.addPropertyChangeListener(listener);
-  }
-  
+//  public void addPropertyChangeListener(PropertyChangeListener listener){
+//    support.addPropertyChangeListener(listener);
+//  }
+//  
   
   public boolean isStopped(){
     return isStopped;
@@ -119,14 +119,16 @@ public class OrbitDataInspector extends javax.swing.JComponent implements MouseL
   
   public void mouseEntered(MouseEvent e) {
     if(isStopped()){
-      support.firePropertyChange("odMouseEntered",null,null);
+      //support.
+      firePropertyChange("odMouseEntered",null,null);
     }
    
   }
   
   public void mouseExited(MouseEvent e) {
     if(isStopped()){
-      support.firePropertyChange("odMouseExited",null,null);
+      //support.
+      firePropertyChange("odMouseExited",null,null);
     }
   }
   
