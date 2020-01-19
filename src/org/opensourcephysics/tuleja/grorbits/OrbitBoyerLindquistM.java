@@ -4,7 +4,7 @@ import org.opensourcephysics.tuleja.numerics.*;
 
 public class OrbitBoyerLindquistM extends Orbit{
   
-  static int nPoints = (/** @j2sNative 1 ? 150 : */1500);
+  static int nPoints = (/** @j2sNative 1 ? 1500 : */1500);
   public OrbitBoyerLindquistM(){
     super();
     twoPotentials=false;

@@ -29,6 +29,8 @@ public class OrbitDrawingPanel extends DrawingPanel implements MouseListener, Mo
   boolean showGrid=true, showTrail=true, showScale=true, showRing=true, arrowDragged=true;
   boolean showInitialArrow=true;
 
+  private final static Color cWithinHorizon = new Color(255, 255, 127);
+
   public OrbitDrawingPanel(Orbit orbit) {
     setSquareAspect(true);
     this.orbit=orbit;
@@ -37,10 +39,11 @@ public class OrbitDrawingPanel extends DrawingPanel implements MouseListener, Mo
   }
 
 
+  private static float[] dashed = {4f,2f};
+  private static BasicStroke dbs = new BasicStroke(0.75f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER,1.0f,dashed,0.0f);
+  private static BasicStroke bs = new BasicStroke(0.75f);
+
   public void draw(Graphics2D g2){
-    float[] dashed = {4f,2f};
-    BasicStroke dbs = new BasicStroke(0.75f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER,1.0f,dashed,0.0f);
-    BasicStroke bs = new BasicStroke(0.75f);
 
     //draws static limit in light gray
     double rPlot = (xToPix(orbit.rTorPlot(2)) - xToPix(-orbit.rTorPlot(2)))/2.0;
@@ -90,17 +93,31 @@ public class OrbitDrawingPanel extends DrawingPanel implements MouseListener, Mo
       //draw orbit
       g2.setStroke(bs);
 
-      for (int i = orbit.getNumPoints()-2; i >=0 ; i--) {
+      
+      double horizon =  orbit.getRHorizon();
+      Color lastColor = null;
+      int n = orbit.getNumPoints() - 1;
+      double pi1 = orbit.getPhi(n);
+      double ri1 = orbit.rTorPlot(orbit.getR(n));
+      int x1 = (int) xToPix(ri1 * Math.cos(pi1));
+      int y1 = (int) yToPix(ri1 * Math.sin(pi1));
+
+      for (int i = n; --i >= 0;) {
         //int colorComp=Math.round((float)i/((float)orbit.numPoints)*255f);
         //g2.setColor(new Color(255, colorComp, colorComp));
-        if (orbit.getR(i) < orbit.getRHorizon()) g2.setColor(new Color(255, 255, 127));
-        else g2.setColor(new Color(0, 0, 0));
-        g2.draw(new Line2D.Double(xToPix(orbit.rTorPlot(orbit.getR(i)) *
-            Math.cos(orbit.getPhi(i))), yToPix(orbit.rTorPlot(orbit.getR(i)) *
-                Math.sin(orbit.getPhi(i))), xToPix(orbit.rTorPlot(orbit.getR(i+1)) *
-                    Math.cos(orbit.getPhi(i+1))), yToPix(orbit.rTorPlot(orbit.getR(i+1)) *
-                        Math.sin(orbit.getPhi(i+1)))));
-
+    	
+    	Color c = (orbit.getR(i) < horizon ? cWithinHorizon : Color.BLACK);
+        if (c != lastColor) {
+        	g2.setColor(lastColor = c);
+        }
+        double pi = orbit.getPhi(i);
+        double ri = orbit.rTorPlot(orbit.getR(i));
+        int x = (int) xToPix(ri * Math.cos(pi));
+        int y = (int) yToPix(ri * Math.sin(pi));
+        g2.draw(new Line2D.Double(x1, y1, x, y));
+        //g2.drawLine(x1, y1, x, y);
+        x1 = x;
+        y1 = y;
       }
 
     }

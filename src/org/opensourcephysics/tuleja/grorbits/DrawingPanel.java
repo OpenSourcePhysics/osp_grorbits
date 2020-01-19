@@ -31,6 +31,8 @@ public abstract class DrawingPanel extends javax.swing.JPanel {
   }
   
   
+  Rectangle2D.Double rec;
+  
   /**
    * 
    * @param g Graphics
@@ -54,9 +56,12 @@ public abstract class DrawingPanel extends javax.swing.JPanel {
       sx2 = cX + 0.5 * (sy2 - sy1) / size.getHeight() * size.getWidth();
     }
     
+	if (rec == null || si2 != rec.width || sj2 != rec.height)
+		rec = new Rectangle2D.Double(0, 0, si2, sj2);
+
     //background
     g2.setColor(Color.white);
-    g2.fill(new Rectangle2D.Double(0, 0, size.width, size.height));
+    g2.fill(rec);
     g2.setColor(Color.black);
     draw(g2);
     
