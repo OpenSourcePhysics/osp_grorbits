@@ -30,7 +30,9 @@ public class OrbitDrawingPanel extends DrawingPanel implements MouseListener, Mo
   boolean showInitialArrow=true;
 
   private final static Color cWithinHorizon = new Color(255, 255, 127);
-
+  private final static Color cGrey200 = new Color(200, 200, 200);
+  private final static Color cGrey247 = new Color(247, 247, 247);
+  
   public OrbitDrawingPanel(Orbit orbit) {
     setSquareAspect(true);
     this.orbit=orbit;
@@ -42,7 +44,8 @@ public class OrbitDrawingPanel extends DrawingPanel implements MouseListener, Mo
   private static float[] dashed = {4f,2f};
   private static BasicStroke dbs = new BasicStroke(0.75f, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER,1.0f,dashed,0.0f);
   private static BasicStroke bs = new BasicStroke(0.75f);
-
+  private static BasicStroke bs1 = new BasicStroke(1.0f);
+  
   public void draw(Graphics2D g2){
 
     //draws static limit in light gray
@@ -89,33 +92,41 @@ public class OrbitDrawingPanel extends DrawingPanel implements MouseListener, Mo
 
 
 
+    double r1, p1;
     if(showTrail){
       //draw orbit
       g2.setStroke(bs);
 
       
+      // BH optimizations. See note below about trails
       double horizon =  orbit.getRHorizon();
       Color lastColor = null;
-      int n = orbit.getNumPoints() - 1;
-      double pi1 = orbit.getPhi(n);
-      double ri1 = orbit.rTorPlot(orbit.getR(n));
-      int x1 = (int) xToPix(ri1 * Math.cos(pi1));
-      int y1 = (int) yToPix(ri1 * Math.sin(pi1));
+      p1 = orbit.getPhi(0);
+      r1 = orbit.rTorPlot(orbit.getR(0));
+      int x1 = (int) xToPix(r1 * Math.cos(p1));
+      int y1 = (int) yToPix(r1 * Math.sin(p1));
 
-      for (int i = n; --i >= 0;) {
+      for (int n = orbit.getNumPoints(), i = 1; i < n; i++) {
         //int colorComp=Math.round((float)i/((float)orbit.numPoints)*255f);
         //g2.setColor(new Color(255, colorComp, colorComp));
     	
+        double pi = orbit.getPhi(i);
+        // BH SwingJS Problem is that trails slow down the animation significantly.
+        // This next check allows early points to run faster. 
+        // Clearly, we might not want that, so feel free to veto that.
+        //
+        if (pi == p1)
+        	break;
+        p1 = pi;
+        double ri = orbit.rTorPlot(orbit.getR(i));
+        int x = (int) xToPix(ri * Math.cos(pi));
+        int y = (int) yToPix(ri * Math.sin(pi));
+        //g2.draw(new Line2D.Double(x1, y1, x, y));
     	Color c = (orbit.getR(i) < horizon ? cWithinHorizon : Color.BLACK);
         if (c != lastColor) {
         	g2.setColor(lastColor = c);
         }
-        double pi = orbit.getPhi(i);
-        double ri = orbit.rTorPlot(orbit.getR(i));
-        int x = (int) xToPix(ri * Math.cos(pi));
-        int y = (int) yToPix(ri * Math.sin(pi));
-        g2.draw(new Line2D.Double(x1, y1, x, y));
-        //g2.drawLine(x1, y1, x, y);
+        g2.drawLine(x1, y1, x, y);
         x1 = x;
         y1 = y;
       }
@@ -125,15 +136,17 @@ public class OrbitDrawingPanel extends DrawingPanel implements MouseListener, Mo
 
 
     // draws the orbiter
-    g2.setStroke(new BasicStroke(1.0f));
+    g2.setStroke(bs1);
     g2.setColor(Color.red);
-    g2.fill(new Ellipse2D.Double(xToPix(orbit.rTorPlot(orbit.getR(0)) * Math.cos(orbit.getPhi(0))) - 2.5,
-        yToPix(orbit.rTorPlot(orbit.getR(0)) * Math.sin(orbit.getPhi(0))) - 2.5, 5, 5));
+    r1 = orbit.rTorPlot(orbit.getR(0));
+    p1 = orbit.getPhi(0);
+    g2.fill(new Ellipse2D.Double(xToPix(r1 * Math.cos(p1)) - 2.5,
+        yToPix(r1 * Math.sin(orbit.getPhi(0))) - 2.5, 5, 5));
 
     if(showScale){
       //  draws the horizontal linear scale in the Orbit plot
       g2.setFont(f2);
-      g2.setColor(new Color(200, 200, 200));
+      g2.setColor(cGrey200);
       g2.draw(new Line2D.Double(xToPix(orbit.rTorPlot(orbit.getRInnerHorizon())), yToPix(0),
           xToPix(orbit.rTorPlot(orbit.getRHorizon())), yToPix(0)));
       g2.setColor(Color.black);
@@ -142,7 +155,7 @@ public class OrbitDrawingPanel extends DrawingPanel implements MouseListener, Mo
       rr = 0;
       while (rr < 1.1 * rMax) {
         if (rr < orbit.getRHorizon())
-          g2.setColor(new Color(200, 200, 200));
+          g2.setColor(cGrey200);
         else
           g2.setColor(Color.black);
         g2.draw(new Line2D.Double(xToPix(orbit.rTorPlot(rr)), yToPix(0) - 3,
@@ -161,7 +174,7 @@ public class OrbitDrawingPanel extends DrawingPanel implements MouseListener, Mo
         FontMetrics fm = g2.getFontMetrics();
         int sW = fm.stringWidth(s) + 4;
         int sH = fm.getHeight();
-        g2.setColor(new Color(247, 247, 247));
+        g2.setColor(cGrey247);
         g2.fill(new Rectangle2D.Double(xToPix(orbit.rTorPlot(rr)) - sW / 2, yToPix(0) + 3, sW, sH));
         //if(rr<ode.getRHorizon()) g2.setColor(new Color(200,200,200));
         //else
