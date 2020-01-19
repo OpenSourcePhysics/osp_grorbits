@@ -3,7 +3,7 @@ package org.opensourcephysics.tuleja.grorbits;
 
 public abstract class InitialConditions{
   double sign;
-  Object[][] icData ;
+  double[][] icData ;
   Orbit orbit;
   
   public InitialConditions(Orbit orbit){
@@ -14,10 +14,12 @@ public abstract class InitialConditions{
   public abstract void initializeVariables();
   
   
-  public Object[][] getICData(){
+  public double[][] getICData(){
     return icData;
   }
   
+  
+  public abstract String getLabel(int i);
   
   
   /**
@@ -80,8 +82,10 @@ public abstract class InitialConditions{
   
   public abstract double getTheta0();
   
-  public abstract int getNumPoints();
-  
+  public int getNumPoints(){
+	return (int) icData[icData.length - 1][1];
+  }	  
+
   public double getSign(){
     return sign;
   }

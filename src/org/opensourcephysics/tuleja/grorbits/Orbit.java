@@ -101,7 +101,7 @@ public abstract class Orbit implements ODE{
    * @return returns the time coordinate of the i-th event of the orbit
    */
   public double getT(int i) {
-    return ((Double)(orbitData[i][0])).doubleValue();
+    return orbitData[i][0];
   }
   
   /**
@@ -109,7 +109,7 @@ public abstract class Orbit implements ODE{
    * @return returns the r coordinate of the i-th event of the orbit
    */
   public double getR(int i) {
-    return ((Double)(orbitData[i][1])).doubleValue();
+    return orbitData[i][1];
   }
   
   /**
@@ -117,7 +117,7 @@ public abstract class Orbit implements ODE{
    * @return returns the phi coordinate of the i-th event of the orbit
    */
   public double getPhi(int i) {
-    return ((Double)(orbitData[i][2])).doubleValue();
+    return orbitData[i][2];
   }
   
   /**
@@ -125,7 +125,7 @@ public abstract class Orbit implements ODE{
    * @return returns the tau coordinate of the i-th event of the orbit
    */
   public double getTau(int i) {
-    return ((Double)(orbitData[i][3])).doubleValue();
+    return orbitData[i][3];
   }
   
   

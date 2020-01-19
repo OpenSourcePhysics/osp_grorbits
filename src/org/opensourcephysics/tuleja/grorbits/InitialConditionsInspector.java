@@ -47,7 +47,7 @@ public class InitialConditionsInspector extends javax.swing.JPanel implements Ta
   //inner class implementing custom TableModel
   class MyTableModel extends AbstractTableModel {
     private String[] columnNames = {"property","value"};
-    private Object[][] data = orbit.getIC().getICData();
+    private double[][] data = orbit.getIC().getICData();
     
     public int getColumnCount() {
       return columnNames.length;
@@ -62,7 +62,7 @@ public class InitialConditionsInspector extends javax.swing.JPanel implements Ta
     }
     
     public Object getValueAt(int row, int col) {
-      return data[row][col];
+      return (col == 0 ? orbit.ic.getLabel(row) : data[row][col]);
     }
     
     public Class getColumnClass(int c) {
@@ -83,16 +83,20 @@ public class InitialConditionsInspector extends javax.swing.JPanel implements Ta
       }
     }
     
-    /*
-     * Don't need to implement this method unless your table's
-     * data can change.
-     */
-    public void setValueAt(Object value, int row, int col) {
-      if(isCellEditable(row,col)) {
-        data[row][col] = value;
-        fireTableCellUpdated(row, col);
-      }
-    }
+		/*
+		 * Don't need to implement this method unless your table's data can change.
+		 */
+		public void setValueAt(Object value, int row, int col) {
+			if (isCellEditable(row, col)) {
+				try {
+					data[row][col] = Double.parseDouble(value.toString());
+				} catch (NumberFormatException e) {
+					// ignore change
+					return;
+				}
+				fireTableCellUpdated(row, col);
+			}
+		}
   } 
   
 
