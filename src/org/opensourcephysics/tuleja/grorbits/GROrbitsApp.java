@@ -26,7 +26,24 @@ import org.opensourcephysics.display.OSPRuntime;
  */
 public class GROrbitsApp extends GRorbits2 {
 
-  public GROrbitsApp(String[] args) {
+	/**
+	 * BH just being explicit so I could debug
+	 */
+	  public GROrbitsApp() {
+		  super();
+	  }
+
+	  /**
+	   * BH was initialize()
+	   * 
+	   */
+	  public void init() {
+		  // BH added this to ensure that applet can initialize
+		    super.init();
+		    createFileMenu();
+	  }
+	  
+	  public GROrbitsApp(String[] args) {	
     //  Make sure we have nice window decorations.
     JFrame.setDefaultLookAndFeelDecorated(true);
 
@@ -44,10 +61,13 @@ public class GROrbitsApp extends GRorbits2 {
     frame.setSize(1024, 633);
     frame.setIconImage(iLogo);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    initialize();
-    createFileMenu();
+    // Was initialize()
+    init();
     if(args!=null&& args.length>0)loadXML(args[0]);
-    frame.getContentPane().add(this);
+    // BH adjustment here to add content pane and menu bar separately
+    // rather than just the applet
+    frame.getContentPane().add(getContentPane());
+    frame.setJMenuBar(mainMenu);
     frame.setVisible(true);
 
     // Changes font size
@@ -152,18 +172,16 @@ public class GROrbitsApp extends GRorbits2 {
         }
         String oldTitle = chooser.getDialogTitle();
         chooser.setDialogTitle("Save XML Data");
-        int result = chooser.showSaveDialog(null);
+        int result = -1;
+        try {
+        	result = chooser.showSaveDialog(null);
+        } catch (Throwable e) {
+        	e.printStackTrace();
+        }
         chooser.setDialogTitle(oldTitle);
         if(result==JFileChooser.APPROVE_OPTION) {
            File file = chooser.getSelectedFile();
            // check to see if file already exists
-           if(file.exists()) {
-              int selected = JOptionPane.showConfirmDialog(null, "Replace existing "+file.getName()+"?", "Replace File",
-                 JOptionPane.YES_NO_CANCEL_OPTION);
-              if(selected!=JOptionPane.YES_OPTION) {
-                 return;
-              }
-           }
            org.opensourcephysics.display.OSPRuntime.chooserDir = chooser.getCurrentDirectory().toString();
            String fileName = file.getAbsolutePath();
            // String fileName = XML.getRelativePath(file.getAbsolutePath());
@@ -173,7 +191,15 @@ public class GROrbitsApp extends GRorbits2 {
            int i = fileName.toLowerCase().lastIndexOf(".xml");
            if(i!=fileName.length()-4) {
               fileName += ".xml";
+              file = new File(fileName);
            }
+           if(/** @j2sNative false && */file.exists()) {
+               int selected = JOptionPane.showConfirmDialog(null, "Replace existing "+file.getName()+"?", "Replace File",
+                  JOptionPane.YES_NO_CANCEL_OPTION);
+               if(selected!=JOptionPane.YES_OPTION) {
+                  return;
+               }
+            }
            XMLControl xml = new XMLControlElement(this);
            xml.write(fileName);
         }

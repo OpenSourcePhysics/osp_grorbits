@@ -24,6 +24,7 @@ import javajs.async.SwingJSUtils.StateMachine;
  * in Boyer-Lindquist coordinates and in rain coordinates
  */
 public class GRorbits2 extends JApplet implements Runnable, ActionListener, PropertyChangeListener, StateMachine {
+	
   Container cp;
   Thread animationThread;  
   
@@ -40,6 +41,7 @@ public class GRorbits2 extends JApplet implements Runnable, ActionListener, Prop
   Orbit orbit;
   
   JMenuBar mainMenu;
+  
   JMenu menuProgramMode, menuMetric, menuOrbits, menuDisplay, menuInitial, menuZoom, menuAbout;
   JMenuItem menuItemCircStable, menuItemCircUnstable, menuItemCircNegUnstable, menuItemCircPosUnstable;
   ButtonGroup bgMode, bgOrbits;
@@ -74,7 +76,11 @@ public class GRorbits2 extends JApplet implements Runnable, ActionListener, Prop
     
   }
   
-  public void initialize(){
+  /**
+   * BH Was initialize(), but then the applet could be run by itself.
+   * 
+   */
+  public void init(){
     
     //definition of Menu
     mainMenu = new JMenuBar();
@@ -999,6 +1005,9 @@ public class GRorbits2 extends JApplet implements Runnable, ActionListener, Prop
     odInspector.setStopped(true);
   }
   
+  
+  // BH switching from while/sleep loop to state loop. 
+  
 	private final static int STATE_INIT = 0;
 	private final static int STATE_LOOP = 1;
 	private final static int STATE_DONE = 2;
@@ -1023,11 +1032,12 @@ public class GRorbits2 extends JApplet implements Runnable, ActionListener, Prop
 		        pnlButtons.setBorder(BorderFactory.createTitledBorder("t = ".concat(format.format(orbit.getT()).concat(" M     \u03c4 = ").concat(format.format(orbit.getTau()))).concat(" M")));
 		        
 		        orbDrawingPanel.repaint();
-		        odInspector.repaint();
+//		        odInspector.repaint();
 		        potDrawingPanel.repaint();
 				stateHelper.sleep(frameDelay );
 				return true;
 			case STATE_DONE:
+		        odInspector.repaint();
 				return false;
 			}
 		}
@@ -1087,9 +1097,13 @@ public class GRorbits2 extends JApplet implements Runnable, ActionListener, Prop
     frame.setIconImage(iLogo);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     GRorbits2 app = new GRorbits2();
-    app.initialize();
-    frame.setContentPane(app);
-    frame.setVisible(true);
+    // BH was initialize(); just renamed
+    app.init();
+    // BH adding the applet content pane, not the applet itself
+    // and then moving the menu. 
+    frame.setContentPane(app.getContentPane());
+    frame.setJMenuBar(app.mainMenu);
+    frame.setVisible(true); 
   }
 
   
