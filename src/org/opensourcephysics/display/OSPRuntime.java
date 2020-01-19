@@ -1016,7 +1016,7 @@ public class OSPRuntime {
       // creates the shared Translator
       try {
         Class<?> translatorClass = Class.forName("org.opensourcephysics.tools.TranslatorTool"); //$NON-NLS-1$
-        Method m = translatorClass.getMethod("getTool", (Class[]) null);                        //$NON-NLS-1$
+        Method m = translatorClass.getMethod(/** @j2sNative "getTool$" || */"getTool", (Class[]) null);                        //$NON-NLS-1$
         translator = (Translator) m.invoke(null, (Object[]) null);
       } catch(Exception ex) {
         loadTranslatorTool = false;
