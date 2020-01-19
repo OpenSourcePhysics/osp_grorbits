@@ -80,11 +80,11 @@ public abstract class DrawingPanel extends javax.swing.JPanel {
   }
 
   public double pixToX(int i) {
-    return sx1 + ((double) (i - si1)) * (sx2 - sx1) / (si2 - si1);
+    return sx1 + (i - si1) * (sx2 - sx1) / (si2 - si1);
   }
 
   public double pixToY(int j) {
-    return sy2 + ((double) (j - sj1)) * (sy1 - sy2) / (sj2 - sj1);
+    return sy2 + (j - sj1) * (sy1 - sy2) / (sj2 - sj1);
   }
 
   public void setPreferredMinMaxX(double sx1, double sx2) {
