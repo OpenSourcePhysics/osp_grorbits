@@ -1004,6 +1004,7 @@ public class GRorbits2 extends JApplet implements Runnable, ActionListener, Prop
 	private final static int STATE_DONE = 2;
 
 	private StateHelper stateHelper;
+	private int frameDelay = (/**@j2sNative 2 || */20);
 
 	@Override
 	public boolean stateLoop() {
@@ -1014,7 +1015,7 @@ public class GRorbits2 extends JApplet implements Runnable, ActionListener, Prop
 			default:
 			case STATE_INIT:
 				stateHelper.setState(STATE_LOOP);
-				stateHelper.sleep(20);
+				stateHelper.sleep(frameDelay);
 				return true;
 			case STATE_LOOP:
 		        orbit.doStep();
@@ -1024,7 +1025,7 @@ public class GRorbits2 extends JApplet implements Runnable, ActionListener, Prop
 		        orbDrawingPanel.repaint();
 		        odInspector.repaint();
 		        potDrawingPanel.repaint();
-				stateHelper.sleep(20);
+				stateHelper.sleep(frameDelay );
 				return true;
 			case STATE_DONE:
 				return false;
@@ -1087,8 +1088,7 @@ public class GRorbits2 extends JApplet implements Runnable, ActionListener, Prop
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     GRorbits2 app = new GRorbits2();
     app.initialize();
-//    frame.getContentPane().add(app);
-    frame.setContentPane(app.getContentPane());
+    frame.setContentPane(app);
     frame.setVisible(true);
   }
 

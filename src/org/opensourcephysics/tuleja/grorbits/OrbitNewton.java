@@ -16,7 +16,7 @@ public class OrbitNewton extends Orbit{
     numPoints=1500;
     ic = new InitialConditionsNewton(this,0,-0.05,4,20,-1,1);//{a,Em,Lm,r,sign,dt}
     t=0;
-    orbitData = new Double[numPoints][4];
+    orbitData = new double[numPoints][4];
   }
   
   public void initialize(double a, double r, double v0, double theta0, double dt, int numPoints){
@@ -27,7 +27,7 @@ public class OrbitNewton extends Orbit{
     
     ic = new InitialConditionsNewton(this, a, r, v0, theta0, dt);
     t=0;
-    orbitData = new Double[numPoints][4];
+    orbitData = new double[numPoints][4];
     
     //  inicialization of ODE Solver
     odeSolver = new RK45GRorbitsMultiStep(this);

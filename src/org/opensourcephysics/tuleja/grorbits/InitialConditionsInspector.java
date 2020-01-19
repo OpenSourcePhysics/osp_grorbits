@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
 
 
 
-public class InitialConditionsInspector extends javax.swing.JComponent implements TableModelListener, MouseListener, MouseMotionListener {
+public class InitialConditionsInspector extends javax.swing.JPanel implements TableModelListener, MouseListener, MouseMotionListener {
   public JTable table;
   Orbit orbit;
   //PropertyChangeSupport support = 

@@ -11,7 +11,7 @@ import java.awt.RenderingHints;
  *
  * 
  */
-public abstract class DrawingPanel extends javax.swing.JComponent {
+public abstract class DrawingPanel extends javax.swing.JPanel {
   Dimension size;
   Font f1 = new Font("SansSerif", Font.BOLD, 12);
   Font f2 = new Font("SansSerif", Font.PLAIN, 9);

@@ -137,13 +137,10 @@ public abstract class InitialConditionsL extends InitialConditions{
   
   public void setNumPoints(){
     orbit.numPoints=getNumPoints();
-    orbit.orbitData = new Double[orbit.numPoints][4];
+    orbit.orbitData = new double[orbit.numPoints][4];
     //initially we load initial condition to the orbitData array
     for(int i=0; i<orbit.numPoints; i++){
-      orbit.orbitData[i][0]= new Double(0);
-      orbit.orbitData[i][1]= new Double(orbit.ic.getR());
-      orbit.orbitData[i][2]= new Double(0);
-      orbit.orbitData[i][3]= new Double(0);
+      orbit.orbitData[i][1]= orbit.ic.getR();
     }
   }
   

@@ -16,7 +16,7 @@ public class OrbitBoyerLindquistL extends Orbit{
     numPoints=1500;
     ic = new InitialConditionsBoyerLindquistL(this,0,0.03,20,-1,1);//{a,invB,r,sign,dt}
     t=0;
-    orbitData = new Double[numPoints][4];
+    orbitData = new double[numPoints][4];
   }
   
   public void initialize(double a, double r, double v0, double theta0, double dt, int numPoints){
@@ -26,7 +26,7 @@ public class OrbitBoyerLindquistL extends Orbit{
     
     ic = new InitialConditionsBoyerLindquistL(this, a, r, theta0, dt);
     t=0;
-    orbitData = new Double[numPoints][4];
+    orbitData = new double[numPoints][4];
     
     //  inicialization of ODE Solver
     odeSolver = new RK45GRorbitsMultiStep(this);

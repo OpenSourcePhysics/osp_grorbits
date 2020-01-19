@@ -13,7 +13,7 @@ public abstract class Orbit implements ODE{
   ODEAdaptiveSolver odeSolver;
   double t;
   PropertyChangeSupport support;
-  Object[][] orbitData;
+  double[][] orbitData;
   public boolean twoPotentials = false;
   
   
@@ -78,16 +78,16 @@ public abstract class Orbit implements ODE{
     ic.computeInitialState(); // here we compute dr/dt, dphi/dt,...
     
     //  initially we load initial condition to the orbitData array
-    orbitData[0][0]= new Double(0);
-    orbitData[0][1]=new Double(ic.getR());
-    orbitData[0][2]= new Double(0);
-    orbitData[0][3]= new Double(0);
+    orbitData[0][0]= (0);
+    orbitData[0][1]=(ic.getR());
+    orbitData[0][2]= (0);
+    orbitData[0][3]= (0);
     //we fill remaining rows with zeros 
     for(int i=1; i<numPoints; i++){
-      orbitData[i][0]= new Double(0);
-      orbitData[i][1]= new Double(ic.getR());
-      orbitData[i][2]= new Double(0);
-      orbitData[i][3]= new Double(0);
+      orbitData[i][0]= (0);
+      orbitData[i][1]= (ic.getR());
+      orbitData[i][2]= (0);
+      orbitData[i][3]= (0);
     }
     
     
@@ -151,16 +151,16 @@ public abstract class Orbit implements ODE{
     }
     
     if(getT()>0){
-      orbitData[0][0] = new Double(getT());
-      orbitData[0][1] = new Double(getR());
-      orbitData[0][2] = new Double(getPhi());
-      orbitData[0][3] = new Double(getTau());
+      orbitData[0][0] = (getT());
+      orbitData[0][1] = (getR());
+      orbitData[0][2] = (getPhi());
+      orbitData[0][3] = (getTau());
     }
     else{
-      orbitData[0][0]= new Double(0);
-      orbitData[0][1]= new Double(ic.getR());
-      orbitData[0][2]= new Double(0);
-      orbitData[0][3]= new Double(0);
+      orbitData[0][0]= (0);
+      orbitData[0][1]= (ic.getR());
+      orbitData[0][2]= (0);
+      orbitData[0][3]= (0);
     }
     
   }
@@ -189,16 +189,16 @@ public abstract class Orbit implements ODE{
     }
     
     if(getT()>0){
-      orbitData[numPoints-1][0] = new Double(getT());
-      orbitData[numPoints-1][1] = new Double(getR());
-      orbitData[numPoints-1][2] = new Double(getPhi());
-      orbitData[numPoints-1][3] = new Double(getTau());
+      orbitData[numPoints-1][0] = (getT());
+      orbitData[numPoints-1][1] = (getR());
+      orbitData[numPoints-1][2] = (getPhi());
+      orbitData[numPoints-1][3] = (getTau());
     }
     else {
-      orbitData[numPoints-1][0]= new Double(0);
-      orbitData[numPoints-1][1]= new Double(ic.getR());
-      orbitData[numPoints-1][2]= new Double(0);
-      orbitData[numPoints-1][3]= new Double(0);
+      orbitData[numPoints-1][0]= (0);
+      orbitData[numPoints-1][1]= (ic.getR());
+      orbitData[numPoints-1][2]= (0);
+      orbitData[numPoints-1][3]= (0);
     }
     
     //  again change dt to -dt
@@ -219,10 +219,10 @@ public abstract class Orbit implements ODE{
   
   public synchronized void computeOrbitAtOnce(){
     for(int k=0; k<numPoints; k++){
-      orbitData[numPoints-k-1][0] = new Double(getT());
-      orbitData[numPoints-k-1][1] = new Double(getR());
-      orbitData[numPoints-k-1][2] = new Double(getPhi());
-      orbitData[numPoints-k-1][3] = new Double(getTau());
+      orbitData[numPoints-k-1][0] = (getT());
+      orbitData[numPoints-k-1][1] = (getR());
+      orbitData[numPoints-k-1][2] = (getPhi());
+      orbitData[numPoints-k-1][3] = (getTau());
       // makes a single step in calculation
       
       
@@ -232,10 +232,10 @@ public abstract class Orbit implements ODE{
       catch(InsufficientConvergenceException e){
         support.firePropertyChange("numConvException",null,null);
         for(int j=k+1; j<numPoints;j++){
-          orbitData[numPoints-j-1][0] = new Double(getT());
-          orbitData[numPoints-j-1][1] = new Double(getR());
-          orbitData[numPoints-j-1][2] = new Double(getPhi());
-          orbitData[numPoints-j-1][3] = new Double(getTau());
+          orbitData[numPoints-j-1][0] = (getT());
+          orbitData[numPoints-j-1][1] = (getR());
+          orbitData[numPoints-j-1][2] = (getPhi());
+          orbitData[numPoints-j-1][3] = (getTau());
         }
         break;
       }
@@ -267,7 +267,7 @@ public abstract class Orbit implements ODE{
     return odeSolver;
   }
   
-  public Object[][] getOrbitData(){
+  public double[][] getOrbitData(){
     return orbitData;
   }
   

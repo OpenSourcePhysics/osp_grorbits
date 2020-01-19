@@ -12,7 +12,7 @@ import java.beans.PropertyChangeSupport;
 
 
 
-public class OrbitDataInspector extends javax.swing.JComponent implements MouseListener, MouseMotionListener  {
+public class OrbitDataInspector extends javax.swing.JPanel implements MouseListener, MouseMotionListener  {
   double Em, Lm, rInit, phiInit;
   JTable table;
   Orbit orbit;
@@ -46,7 +46,7 @@ public class OrbitDataInspector extends javax.swing.JComponent implements MouseL
 //inner class implementing custom TableModel
   class MyTableModel extends AbstractTableModel {
     private String[] columnNames = {"t (M)","r (M)","\u03d5 (rad)","\u03c4 (M)"};
-    private Object[][] data = orbit.getOrbitData();
+    private double[][] data = orbit.getOrbitData();
     
     public int getColumnCount() {
       return columnNames.length;
@@ -85,7 +85,7 @@ public class OrbitDataInspector extends javax.swing.JComponent implements MouseL
      */
     public void setValueAt(Object value, int row, int col) {
       if(isCellEditable(row,col)) {
-        data[row][col] = value;
+        data[row][col] = ((Double)value).doubleValue();
         fireTableCellUpdated(row, col);
       }
     }

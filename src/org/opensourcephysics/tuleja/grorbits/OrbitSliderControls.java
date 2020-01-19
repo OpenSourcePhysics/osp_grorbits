@@ -22,7 +22,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.SwingPropertyChangeSupport;
 
-public class OrbitSliderControls extends javax.swing.JComponent implements ChangeListener, MouseListener, MouseMotionListener{
+public class OrbitSliderControls extends javax.swing.JPanel implements ChangeListener, MouseListener, MouseMotionListener{
   public JSlider slA, slLm, slB;
   double Lm,a,b;
   DecimalFormat format = new DecimalFormat("0.000");
