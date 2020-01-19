@@ -18,21 +18,32 @@ import java.util.ResourceBundle;
  */
 public class DisplayRes {
   private static String BUNDLE_NAME = "org.opensourcephysics.resources.display.display_res"; //$NON-NLS-1$
-  private static ResourceBundle res = ResourceBundle.getBundle(BUNDLE_NAME);
+  private static ResourceBundle res;
+  static {
+	  try {
+		  // BH added try here -- was disabling File...Save in GRorbits
+	  res = ResourceBundle.getBundle(BUNDLE_NAME);
+	  } catch (Exception e) {
+	  }
+  }
 
   private DisplayRes() {}
 
   public static void setLocale(Locale locale) {
+	  try {
     res = ResourceBundle.getBundle(BUNDLE_NAME, locale);
+	  } catch (Exception e) {
+	  }
   }
 
-  public static String getString(String key) {
-    try {
-      return res.getString(key);
-    } catch(MissingResourceException e) {
-      return '!'+key+'!';
-    }
-  }
+	public static String getString(String key) {
+		try {
+			if (res != null)
+				return res.getString(key);
+		} catch (MissingResourceException e) {
+		}
+		return '!' + key + '!';
+	}
 
 }
 
