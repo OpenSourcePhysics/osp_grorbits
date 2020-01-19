@@ -40,7 +40,7 @@ public class SwingJSUtils {
 	 * 
 	 * Then, if it is desired also to have Java also set this, add
 	 * 
-	 *  if (dim) setSize(dim);  
+	 *  if (dim != null) setSize(dim);  
 	 *  
 	 *  to the applet's init() method.
 	 * 
