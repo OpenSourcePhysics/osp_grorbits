@@ -334,7 +334,7 @@ public class FontSizer {
     	}
     }
     else try {
-			Method m = c.getClass().getMethod(/** @j2sNative "getIcon$" || */"getIcon", (Class<?>[])null); //$NON-NLS-1$
+			Method m = c.getClass().getMethod("getIcon", (Class<?>[])null); //$NON-NLS-1$
 			if (m != null) {
 				Icon icon = (Icon)m.invoke(c, (Object[])null);
 				if (icon!=null && icon instanceof ResizableIcon) {

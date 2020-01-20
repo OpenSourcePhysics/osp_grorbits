@@ -41,6 +41,8 @@ import org.opensourcephysics.tools.FontSizer;
 import org.opensourcephysics.tools.ResourceLoader;
 import org.opensourcephysics.tools.Translator;
 
+import javajs.async.AsyncFileChooser;
+
 /**
  * This class defines static methods related to the runtime environment.
  *
@@ -1016,7 +1018,7 @@ public class OSPRuntime {
       // creates the shared Translator
       try {
         Class<?> translatorClass = Class.forName("org.opensourcephysics.tools.TranslatorTool"); //$NON-NLS-1$
-        Method m = translatorClass.getMethod(/** @j2sNative "getTool$" || */"getTool", (Class[]) null);                        //$NON-NLS-1$
+        Method m = translatorClass.getMethod("getTool", (Class[]) null);                        //$NON-NLS-1$
         translator = (Translator) m.invoke(null, (Object[]) null);
       } catch(Exception ex) {
         loadTranslatorTool = false;
@@ -1026,7 +1028,12 @@ public class OSPRuntime {
     return translator;
   }
 
-  private static JFileChooser chooser;
+  /**
+   * BH AsyncFileChooser extends JFileChooser, so all of the methods of JFileChooser are still available. In particular,
+   * the SAVE action needs no changes. But File reading requires asynchronous action in SwingJS. 
+   * 
+   */
+  private static AsyncFileChooser chooser;
 
   /**
    * Gets a file chooser.
@@ -1034,13 +1041,13 @@ public class OSPRuntime {
    *
    * @return the chooser
    */
-  public static JFileChooser getChooser() {
+  public static AsyncFileChooser getChooser() {
     if(chooser!=null) {
     	FontSizer.setFonts(chooser, FontSizer.getLevel());
       return chooser;
     }
     try {
-      chooser = (OSPRuntime.chooserDir==null) ? new JFileChooser() : new JFileChooser(new File(OSPRuntime.chooserDir));
+      chooser = (OSPRuntime.chooserDir==null) ? new AsyncFileChooser() : new AsyncFileChooser(new File(OSPRuntime.chooserDir));
     } catch(Exception e) {
       System.err.println("Exception in OSPFrame getChooser="+e); //$NON-NLS-1$
       return null;
