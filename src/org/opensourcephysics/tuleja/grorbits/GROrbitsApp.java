@@ -14,6 +14,9 @@ import java.io.File;
 import javax.swing.JOptionPane;
 import java.beans.PropertyChangeListener;
 import org.opensourcephysics.tools.FontSizer;
+
+import javajs.async.AsyncFileChooser;
+
 import java.beans.PropertyChangeEvent;
 import org.opensourcephysics.display.OSPRuntime;
 
@@ -149,20 +152,31 @@ public class GROrbitsApp extends GRorbits2 {
   }
 
   public void loadXML() {
-     JFileChooser chooser = OSPRuntime.getChooser();
+     AsyncFileChooser chooser = OSPRuntime.getChooser();
      if(chooser==null) {
         return;
      }
      String oldTitle = chooser.getDialogTitle();
      chooser.setDialogTitle("Load XML Data");
-     int result = chooser.showOpenDialog(null);
-     chooser.setDialogTitle(oldTitle);
-     if(result==JFileChooser.APPROVE_OPTION) {
-        org.opensourcephysics.display.OSPRuntime.chooserDir = chooser.getCurrentDirectory().toString();
-        String fileName = chooser.getSelectedFile().getAbsolutePath();
-        XMLControlElement xml = new XMLControlElement(fileName);
-        xml.loadObject(this); // load the data
-     }
+     chooser.showOpenDialog(null, new Runnable() {
+    	 // OK
+		@Override
+		public void run() {
+		     org.opensourcephysics.display.OSPRuntime.chooserDir = chooser.getCurrentDirectory().toString();
+		     // It is critical to pass the actual file along, as it has the bytes already.
+		     XMLControlElement xml = new XMLControlElement(chooser.getSelectedFile());
+		     xml.loadObject(GROrbitsApp.this); // load the data
+		     chooser.setDialogTitle(oldTitle);
+		}
+    	 
+     }, new Runnable() {
+    	 // cancel
+		@Override
+		public void run() {
+		     chooser.setDialogTitle(oldTitle);
+		}
+    	 
+     });
    }
 
    public void saveXML() {
