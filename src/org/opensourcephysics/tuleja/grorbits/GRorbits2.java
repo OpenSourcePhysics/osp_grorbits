@@ -690,7 +690,16 @@ public class GRorbits2 extends JApplet implements Runnable, ActionListener, Prop
     }
     else if(e.getActionCommand().equals("About this program")){
       //after selecting menu About->About this program
-      JOptionPane.showMessageDialog(this, "This piece of software may be used to accompany\nthe text written by Edwin F. Taylor and John A. Wheeler,\nEXPLORING BLACK HOLES.\n\nBased on a program by Adam G. Riess and Edwin F. Taylor.\nProfessional advisor: Edmund Bertschinger of MIT.\nJava version:\n(c) Slavom\u00EDr Tuleja, Tom\u00E1\u0161 Je\u017Eo, and Jozef Han\u010D\n\nPlease send any comments to:\ntuleja@stonline.sk\n\nThis program uses classes from Open Source Physics Project\nwww.opensourcephysics.org\noriginated by Wolfgang Christian et al.\n\nThe program is published under the GNU GPL licence.\n\nVersion of July 16, 2006",
+      JOptionPane.showMessageDialog(this, "This piece of software may be used to accompany\nthe text written by Edwin F. Taylor and John A. Wheeler,\n"+
+      "EXPLORING BLACK HOLES.\n\nBased on a program by Adam G. Riess and Edwin F. Taylor.\n"+""
+      		+ "Professional advisor: Edmund Bertschinger of MIT.\n\n"
+      +"Java version:\n(c) Slavom\u00EDr Tuleja, Tom\u00E1\u0161 Je\u017Eo, and Jozef Han\u010D\n"+
+      "JavaScript version:\n(c) Developed by Wolfgang Christian and Robert Hanson using the SwingJS transpiler.\n\n"+
+      "Please send any comments to:\ntuleja@stonline.sk\n"+
+      "Please send JavaScript version comments to:\nwochristian@davidson.edu\n\n"+
+      "This program uses classes from Open Source Physics (OSP) Project\nwww.opensourcephysics.org\noriginated by Wolfgang Christian et al.\n\n"+
+      "The program is published under the GNU GPL licence.\n\n"+
+      "OSP JavaScript Version released January 21, 2020",
           "About this program",
           JOptionPane.INFORMATION_MESSAGE);
       repaint();
