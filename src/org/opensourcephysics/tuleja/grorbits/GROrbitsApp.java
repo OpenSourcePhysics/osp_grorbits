@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import org.opensourcephysics.controls.*;
 import javax.swing.JMenuItem;
 
+import java.awt.Frame;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,6 +30,8 @@ import org.opensourcephysics.display.OSPRuntime;
  */
 public class GROrbitsApp extends GRorbits2 {
 
+	  public static JFrame frame = null;
+	  
 	/**
 	 * BH just being explicit so I could debug
 	 */
@@ -60,7 +63,8 @@ public class GROrbitsApp extends GRorbits2 {
       iLogo = null;
     }
 
-    final JFrame frame = new JFrame("GRorbits");
+    //final JFrame frame = new JFrame("GRorbits");
+    frame = new JFrame("GRorbits");  // use static reference for scripting
     frame.setSize(1024, 633);
     frame.setIconImage(iLogo);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
