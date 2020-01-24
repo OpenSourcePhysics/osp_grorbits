@@ -533,10 +533,10 @@ public class GRorbits2 extends JApplet implements Runnable, ActionListener, Prop
       splitPaneProperties.setBottomComponent(sliderControls);
       splitPaneProperties.setResizeWeight(0.25);
       orbit.reset();
+      orbDrawingPanel.setInitialArrowVisible(true);
       orbDrawingPanel.repaint();
       potDrawingPanel.repaint();
       odInspector.repaint();
-      orbDrawingPanel.setInitialArrowVisible(true);
     }
     else if(e.getActionCommand().equals("Time plot")){
       btnStartStop.setEnabled(true);
