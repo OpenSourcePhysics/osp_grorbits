@@ -690,7 +690,7 @@ public class GRorbits2 extends JApplet implements Runnable, ActionListener, Prop
     }
     else if(e.getActionCommand().equals("About this program")){
       //after selecting menu About->About this program
-      JOptionPane.showMessageDialog(this, "This piece of software may be used to accompany\nthe text written by Edwin F. Taylor and John A. Wheeler,\n"+
+      JOptionPane.showMessageDialog(this, "This software in intended to be used to accompany\nthe text written by Edwin F. Taylor and John A. Wheeler,\n"+
       "EXPLORING BLACK HOLES.\n\nBased on a program by Adam G. Riess and Edwin F. Taylor.\n"+""
       		+ "Professional advisor: Edmund Bertschinger of MIT.\n\n"
       +"Java version:\n(c) Slavom\u00EDr Tuleja, Tom\u00E1\u0161 Je\u017Eo, and Jozef Han\u010D\n"+
