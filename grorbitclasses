@@ -87,6 +87,7 @@ java/awt/event/MouseEvent.js
 java/awt/event/MouseListener.js
 java/awt/event/MouseMotionListener.js
 java/awt/event/MouseWheelListener.js
+java/awt/event/MouseWheelEvent.js
 java/awt/event/TextListener.js
 java/awt/event/WindowAdapter.js
 java/awt/event/WindowEvent.js
