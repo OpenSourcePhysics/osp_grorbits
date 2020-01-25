@@ -22,7 +22,6 @@
     <antcall target="call-core">
         <param name="call-core.name" value="_grorbits" />
         <param name="call-core.list" value="
-			core/coreswingjs.js
          	${coreclasses}
         	" />
     </antcall>
