@@ -64,7 +64,7 @@ public class GROrbitsApp extends GRorbits2 {
     }
 
     //final JFrame frame = new JFrame("GRorbits");
-    frame = new JFrame("GRorbits");  // use static reference for scripting
+    frame = new JFrame("GR Orbits");  // use static reference for scripting
     frame.setSize(1024, 633);
     frame.setIconImage(iLogo);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -194,6 +194,7 @@ public class GROrbitsApp extends GRorbits2 {
         try {
         	result = chooser.showSaveDialog(null);
         } catch (Throwable e) {
+        	System.err.println("InterruptedException in saveXML()().");
         	e.printStackTrace();
         }
         chooser.setDialogTitle(oldTitle);

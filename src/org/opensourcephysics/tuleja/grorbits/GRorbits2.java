@@ -695,7 +695,7 @@ public class GRorbits2 extends JApplet implements Runnable, ActionListener, Prop
       		+ "Professional advisor: Edmund Bertschinger of MIT.\n\n"
       +"Java version:\n(c) Slavom\u00EDr Tuleja, Tom\u00E1\u0161 Je\u017Eo, and Jozef Han\u010D\n"+
       "JavaScript version:\n(c) Developed by Wolfgang Christian and Robert Hanson using the SwingJS transpiler.\n\n"+
-      "Please send any comments to:\ntuleja@stonline.sk\n"+
+      "Please send any comments to:\nstuleja@gmail.com\n"+
       "Please send JavaScript version comments to:\nwochristian@davidson.edu\n\n"+
       "This program uses classes from Open Source Physics (OSP) Project\nwww.opensourcephysics.org\noriginated by Wolfgang Christian et al.\n\n"+
       "The program is published under the GNU GPL licence.\n\n"+
@@ -998,13 +998,16 @@ public class GRorbits2 extends JApplet implements Runnable, ActionListener, Prop
    * stopAnimation
    */
   public void stopAnimation() {
+	System.err.println("stopAnimation)().");
     Thread tempThread = animationThread; //temporary reference
     animationThread = null; //signal the animation to stop
-    if (tempThread != null) {
+    if (!org.opensourcephysics.js.JSUtil.isJS && tempThread != null) {
       try {
         tempThread.interrupt(); //get out of the sleep state
         tempThread.join(); //wait for the thread to die
       } catch (InterruptedException e) {
+    	  System.err.println("InterruptedException in stopAnimation)().");
+    	  e.printStackTrace();
       }
     }
     potDrawingPanel.setStopped(true);
@@ -1101,7 +1104,7 @@ public class GRorbits2 extends JApplet implements Runnable, ActionListener, Prop
       iLogo = null;
     }
     
-    JFrame frame = new JFrame("GRorbits");
+    JFrame frame = new JFrame("GR Orbits");
     frame.setSize(1024, 633);
     frame.setIconImage(iLogo);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
