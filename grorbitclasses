@@ -86,6 +86,7 @@ java/awt/event/KeyListener.js
 java/awt/event/MouseEvent.js
 java/awt/event/MouseListener.js
 java/awt/event/MouseMotionListener.js
+java/awt/event/MouseWheelEvent.js
 java/awt/event/MouseWheelListener.js
 java/awt/event/TextListener.js
 java/awt/event/WindowAdapter.js
@@ -181,13 +182,19 @@ java/net/URL.js
 java/net/URLConnection.js
 java/net/URLStreamHandler.js
 java/net/URLStreamHandlerFactory.js
+java/nio/channels/Channel.js
+java/nio/channels/ByteChannel.js
 java/nio/channels/ReadableByteChannel.js
+java/nio/channels/SeekableByteChannel.js
+java/nio/channels/WritableByteChannel.js
 java/nio/charset/Charset.js
 java/nio/file/FileSystem.js
 java/nio/file/FileSystems.js
 java/nio/file/Files.js
+java/nio/file/OpenOption.js
 java/nio/file/Path.js
 java/nio/file/Paths.js
+java/nio/file/StandardOpenOption.js
 java/nio/file/Watchable.js
 java/nio/file/attribute/AttributeView.js
 java/nio/file/attribute/BasicFileAttributeView.js
@@ -268,12 +275,14 @@ javajs/util/Lst.js
 javajs/util/PT.js
 javajs/util/Rdr.js
 javajs/util/SB.js
+javajs/util/V3.js
 javax/net/ssl/HttpsURLConnection.js
 javax/swing/AbstractAction.js
 javax/swing/AbstractButton.js
 javax/swing/Action.js
 javax/swing/ActionMap.js
 javax/swing/ArrayTable.js
+javax/swing/Autoscroller.js
 javax/swing/BorderFactory.js
 javax/swing/BoundedRangeModel.js
 javax/swing/BoxLayout.js
@@ -319,6 +328,7 @@ javax/swing/JTable.js
 javax/swing/JTextField.js
 javax/swing/JToggleButton.js
 javax/swing/JViewport.js
+javax/swing/JWindow.js
 javax/swing/KeyStroke.js
 javax/swing/KeyboardManager.js
 javax/swing/LayoutComparator.js
@@ -326,6 +336,7 @@ javax/swing/LayoutFocusTraversalPolicy.js
 javax/swing/ListSelectionModel.js
 javax/swing/LookAndFeel.js
 javax/swing/MenuElement.js
+javax/swing/Popup.js
 javax/swing/RepaintManager.js
 javax/swing/RootPaneContainer.js
 javax/swing/ScrollPaneConstants.js
@@ -481,6 +492,7 @@ sun/nio/cs/UTF_8.js
 sun/nio/cs/Unicode.js
 sun/swing/DefaultLookup.js
 sun/swing/SwingLazyValue.js
+sun/swing/SwingUtilities2.js
 sun/swing/table/DefaultTableCellHeaderRenderer.js
 sun/text/resources/FormatData.js
 sun/text/resources/FormatData_en.js
@@ -501,6 +513,7 @@ swingjs/JSImage.js
 swingjs/JSImagekit.js
 swingjs/JSKeyEvent.js
 swingjs/JSMouse.js
+swingjs/JSMouse2.js
 swingjs/JSNullComponentPeer.js
 swingjs/JSScreenDevice.js
 swingjs/JSThreadGroup.js
