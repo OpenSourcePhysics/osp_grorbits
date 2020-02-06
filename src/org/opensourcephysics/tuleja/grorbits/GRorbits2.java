@@ -998,7 +998,7 @@ public class GRorbits2 extends JApplet implements Runnable, ActionListener, Prop
    * stopAnimation
    */
   public void stopAnimation() {
-	System.err.println("stopAnimation)().");
+	//System.err.println("stopAnimation)().");
     Thread tempThread = animationThread; //temporary reference
     animationThread = null; //signal the animation to stop
     if (!org.opensourcephysics.js.JSUtil.isJS && tempThread != null) {
